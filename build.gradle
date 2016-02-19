@@ -1,0 +1,35 @@
+group 'com.joocy'
+version '1.0-SNAPSHOT'
+
+buildscript {
+
+    ext {
+        kotlin_version = '1.0.0'
+        dropwizard_version = '0.9.2'
+        mainClass = 'com.joocy.helloworld.HelloWorldApplication'
+    }
+
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+apply plugin: 'kotlin'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compile "io.dropwizard:dropwizard-core:$dropwizard_version"
+}
+
+task run(type: JavaExec, description: "Start the server") {
+    classpath project.sourceSets.main.runtimeClasspath
+    main = mainClass
+    args = ["server", "src/main/resources/local.yml"]
+}
